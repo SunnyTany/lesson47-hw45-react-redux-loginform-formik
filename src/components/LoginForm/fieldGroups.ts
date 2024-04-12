@@ -5,18 +5,18 @@ const fieldsGroups = [
     label: {
       text: 'Login',
       className: styles.label,
-      htmlFor: "usernName"
+      htmlFor: "userName"
     },
     field: {
       className: styles.input,
       type: "text",
       placeholder: "Enter login",
-      id: "usernName", 
-      name: "usernName"
+      id: "userName", 
+      name: "userName"
     },
     errorMessage: {
       className: styles.errorMessage,
-      name: "usernName",
+      name: "userName",
       component: "div"
     }
   },
