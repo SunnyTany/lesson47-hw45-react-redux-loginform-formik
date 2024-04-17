@@ -1,16 +1,22 @@
 import * as Yup from 'yup'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { useDispatch } from 'react-redux'
-import { login } from '../../redux/authSlice'
 import fieldGroups from './fieldGroups'
 import styles from './style.module.css'
 
+interface ValuesInterface {
+  userName: string,
+  email: string,
+  password: string
+}
+
+interface ActionsInterface {
+  setSubmitting: (isSubmitting: boolean) => void,
+  resetForm: () => void
+}
+
 const LoginForm = () => {
-
-  const dispatch = useDispatch()
-
   const validationSchema = Yup.object({
-    usernName: Yup.string()
+    userName: Yup.string()
       .required('Login is required')
       .min(3, 'Login must be at least 3 characters')
       .max(15, 'Login must be at most 15 characters'),
@@ -23,14 +29,21 @@ const LoginForm = () => {
       .max(20, 'Password must be at most 20 characters')
   })
 
-  const handleLogin = (user: { usernName: string; email: string; password: string }) => {
-    console.log('Login form data: ', user)
-    dispatch(login(user))
+  const handleSubmit = (values: ValuesInterface, actions: ActionsInterface) => {
+    setTimeout(() => {
+      console.log(JSON.stringify(values, null, 2))
+      actions.setSubmitting(false)
+      actions.resetForm()
+    }, 200)
   }
 
   return (
-    <Formik initialValues={{ usernName: '', email: '', password: '' }} validationSchema={validationSchema} onSubmit={handleLogin}>
-      <Form>
+    <Formik 
+      initialValues={{ userName: '', email: '', password: '' }} 
+      validationSchema={validationSchema} 
+      onSubmit={handleSubmit}
+    >
+      <Form className={styles.form}>
         { fieldGroups.map((group, index) => (
           <div key={index} className={styles.formGroup}>
             <label 
@@ -46,12 +59,14 @@ const LoginForm = () => {
             />
             <ErrorMessage
               className={styles.errorMessage} 
-              name={group.errorMessage.name} 
+              name={group.field.name} 
               component={group.errorMessage.component}
             />
           </div>
         ))}
-        <button type="submit">Submit</button>
+        <div className={styles.formGroup}>
+          <button className={styles.btn} type="submit">Submit</button>
+        </div>
       </Form>
     </Formik>
   )

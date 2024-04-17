@@ -1,6 +1,6 @@
 import styles from './style.module.css'
 
-const fieldsGroups = [
+const fieldGroups = [
   {
     label: {
       text: 'Login',
@@ -16,7 +16,6 @@ const fieldsGroups = [
     },
     errorMessage: {
       className: styles.errorMessage,
-      name: "userName",
       component: "div"
     }
   },
@@ -35,7 +34,6 @@ const fieldsGroups = [
     },
     errorMessage: {
       className: styles.errorMessage,
-      name: "email",
       component: "div"
     }
   },
@@ -54,10 +52,9 @@ const fieldsGroups = [
     },
     errorMessage: {
       className: styles.errorMessage,
-      name: "password",
       component: "div"
     }
   }
 ]
 
-export default fieldsGroups
+export default fieldGroups
